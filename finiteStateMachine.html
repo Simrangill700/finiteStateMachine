@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finite State Machine</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const states = {
+            SVGAElement: "Start",
+            Processing: "Processing",
+            Finish: "Finish"
+        };
+        let currentState = states.Start;
+        function handleInput()
+        {
+            const userInput = prompt("Enter 'p' to process, 'f' to finish:");
+            if(userInput === null || userInput.trim() === "")
+            {
+                alert("Please enter a valid input.");
+                return;
+            }
+            switch(currentState)
+            {
+                case states.Start:
+                    currentState = userInput.toLowerCase() === 'p' ? states.Processing : states.Start;
+                    break;
+                case states.Processing: 
+                    currentState = userInput.toLocaleLowerCase() === 'f' ? states.Finish : states.Processing;
+                    break;
+                case states.Finish: 
+                    console.log("currentstate is finish");
+                    currentState = states.Start; //Reset tostart after finishing
+                    break;
+                default: 
+                break;    
+            }
+            console.log(`Current state: ${currentState}`);
+        }
+    </script>
+    <button onclick="handleInput()">Enter State</button>
+</body>
+</html>
